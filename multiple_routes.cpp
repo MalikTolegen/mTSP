@@ -4,7 +4,7 @@
 
 using namespace std;
 
-vector<vector<int>> splitAlgorithm(const vector<vector<double>>& T, const vector<int>& chromosome, int K) {
+vector<vector<int>> split(const vector<vector<double>>& T, const vector<int>& chromosome, int K) {
     int n = chromosome.size();
     vector<vector<double>> V(n + 1, vector<double>(K + 1, numeric_limits<double>::max()));
     vector<vector<int>> P(n + 1, vector<int>(K + 1, -1));
@@ -46,7 +46,7 @@ vector<vector<int>> splitAlgorithm(const vector<vector<double>>& T, const vector
     return bestTours;
 }
 
-double calculateTourDistance(const vector<vector<double>>& T, const vector<int>& tour) {
+double calculate_tour_distance(const vector<vector<double>>& T, const vector<int>& tour) {
     double totalDistance = 0;
     int prevCity = 0;
 
