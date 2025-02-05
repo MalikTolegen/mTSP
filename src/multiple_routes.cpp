@@ -1,13 +1,12 @@
 #include <iostream>
 #include <vector>
 #include <limits>
+#include <algorithm>  // For std::max
 
-using namespace std;
-
-vector<vector<int>> split(const vector<vector<double>>& T, const vector<int>& chromosome, int K) {
+std::vector<std::vector<int>> split(const std::vector<std::vector<double>>& T, const std::vector<int>& chromosome, int K) {
     int n = chromosome.size();
-    vector<vector<double>> V(n + 1, vector<double>(K + 1, numeric_limits<double>::max()));
-    vector<vector<int>> P(n + 1, vector<int>(K + 1, -1));
+    std::vector<std::vector<double>> V(n + 1, std::vector<double>(K + 1, std::numeric_limits<double>::max()));
+    std::vector<std::vector<int>> P(n + 1, std::vector<int>(K + 1, -1));
 
     V[0][0] = 0;
 
@@ -23,7 +22,7 @@ vector<vector<int>> split(const vector<vector<double>>& T, const vector<int>& ch
                 }
                 cost += T[prevCity][0];
 
-                double maxTour = max(V[j][k - 1], cost);
+                double maxTour = std::max(V[j][k - 1], cost);
                 if (maxTour < V[i][k]) {
                     V[i][k] = maxTour;
                     P[i][k] = j;
@@ -32,7 +31,7 @@ vector<vector<int>> split(const vector<vector<double>>& T, const vector<int>& ch
         }
     }
 
-    vector<vector<int>> bestTours(K);
+    std::vector<std::vector<int>> bestTours(K);
     int i = n, k = K;
     while (k > 0) {
         int start = P[i][k];
@@ -46,7 +45,7 @@ vector<vector<int>> split(const vector<vector<double>>& T, const vector<int>& ch
     return bestTours;
 }
 
-double calculate_tour_distance(const vector<vector<double>>& T, const vector<int>& tour) {
+double calculate_tour_distance(const std::vector<std::vector<double>>& T, const std::vector<int>& tour) {
     double totalDistance = 0;
     int prevCity = 0;
 
